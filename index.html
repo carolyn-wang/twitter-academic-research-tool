@@ -14,43 +14,52 @@
 
 <body>
     <h1>Twitter Academic Research Tool</h1>
-    <h3>Berkeley Human Rights Center</h3>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 
     <!-- Search Form -->
-
-    <form>
+    <form name="searchForm" class="needs-validation" action=" #index.html" method="post">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Search Terms</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label for="inputSearch1" class="form-label">Search Terms</label>
+            <input type="text" class="form-control form-control-lg" name="inputSearch" aria-describedby="emailHelp" required>
             <div id="emailHelp" class="form-text">Enter what you would typically search on Twitter</div>
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputStartDate1" class="form-label">Start Date</label>
-            <input type="date" placeholder="Start Date" id="exampleInputStartDate1" />
+            <label for="inputStartDate1" class="form-label">Start Date</label>
+            <input type="date" id="inputDateStart" class="form-control" placeholder="Start Date" />
 
-            <label for="exampleInputEndDate1" class="form-label">End Date</label>
-            <input type="date" placeholder="End Date" id="exampleInputEndDate1" />
+            <label for="inputEndDate1" class="form-label">End Date</label>
+            <input type="date" id="inputDateEnd" class="form-control" placeholder="End Date" />
+
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <input type="checkbox" class="form-check-input" id="checkTypePdf">
             <label class="form-check-label" for="typePdf">PDF</label>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <input type="checkbox" class="form-check-input" id="checkTypeVideo">
             <label class="form-check-label" for="typeVideo">Video</label>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <input type="checkbox" class="form-check-input" id="checkTypePhoto">
             <label class="form-check-label" for="typePhoto">Photos</label>
+        </div>
+        <div class="invalid-feedback">
+            You must agree before submitting.
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
 </body>
+
+<!-- Max Date Limit (input field's max date is today) -->
+<script>
+    inputDateStart.max = new Date().toISOString().split("T")[0];
+    inputDateEnd.max = new Date().toISOString().split("T")[0];
+</script>
+
 
 <!-- Toolbar -->
 <div class="toolbar">
@@ -92,6 +101,7 @@
         toggleClick.classList.toggle('active');
         toolbar.classList.toggle('active');
     })
+
 </script>
 
 <!-- <section class="toolbar"> -->

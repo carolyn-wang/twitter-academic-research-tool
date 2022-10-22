@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:400,600,400italic,600italic");
+@import url("https://fonts.googleapis.com/css?family=Open_Sans:400,600,400italic,600italic");
 
 :root {
   /* Colors */
@@ -15,8 +15,8 @@
   --padding-small: 2.5rem;
   --padding-medium: 4rem;
   --padding-large: 8rem;
-  --padding-toolbar-right: 3rem;
-  --padding-page-right: 15rem;
+  --padding-toolbar-right: 5%;
+  --padding-page-right: 20%;
 }
 
 * {
@@ -32,8 +32,7 @@ body {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: var(--padding-medium);
-  padding-right: var(--padding-page-right);
+  padding: var(--padding-medium) var(--padding-page-right);
 }
 
 /* Toolbar */
