@@ -2,15 +2,16 @@
 
 :root {
   /* Colors */
-  --accent-color: #0f4ec3;
+  --accent-color: #0d6efd;
   --button-hover-color: #002468fd;
   --button-active-color: #0040b6;
-  --toolbar-default-color: #c7daff;
-  --toolbar-hover-color: #53632dfd;
-  --toolbar-active-color: #b66d00;
+  --toolbar-background-color: #0d6dfd2a;
+  --toolbar-hover-color: #0041b1fd;
+  --toolbar-active-color: #002468fd;
 
 
   /* Padding */
+  --padding-none: 0rem;
   --padding-xsmall: 1rem;
   --padding-small: 2.5rem;
   --padding-medium: 4rem;
@@ -35,14 +36,46 @@ body {
   padding: var(--padding-medium) var(--padding-page-right);
 }
 
+/* Page Title & Icon */
+.title-container{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: var(--padding-none);
+}
+
+.fa-twitter{
+  color:var(--accent-color);
+  padding-left: var(--padding-xsmall);
+  padding-top: 0.5rem;
+}
+
+.title-detail{
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: small;
+  color: grey;
+  padding-bottom: var(--padding-xsmall);
+}
+
+
+/* Search Form */
+.form-label{
+  font-size: large;
+}
+
+#inputSearch{
+  border-color: var(--accent-color);
+  border-width: 0.15rem;
+}
+
 /* Toolbar */
 /* Credit: https://www.youtube.com/watch?v=1uEAt51fEos */
 
 .toolbar {
-  top: 150px;
+  top: 10%;
   height: 70px;
   width: 70px;
-  background-color: var(--toolbar-default-color);
+  background-color: var(--toolbar-background-color);
   border-radius: 50px;
   position: absolute;
   right:var(--padding-toolbar-right);
@@ -130,7 +163,7 @@ li a{
 li a i{
   position: relative;
   display: block;
-  font-size: 18px;
+  font-size: small;
   color:black;
   padding: 25px 0; 
   width: 100%;
@@ -138,15 +171,24 @@ li a i{
   transform: scale(0);
 }
 
-.container.active .navItems li a i{
+li a i::after{
+  position: absolute;
+  content: "";
+  top: 50%;
+  left:0; 
+}
+
+.toolbar.active .navItems li a i{
+  padding-top: 2rem;
   transform: scale(1);
   transition: 0.4s ease;
   transition-delay: calc(0.08s * var(--i));
 }
 
-.container.active .navItems li:hover a i{
-  transition: 0.2s ease;
-  color:var(--accent-color);
+.toolbar.active .navItems li:hover a i{
+  transform: scale(1.3);
+  transition: 0.4s ease;
+  color:var(--toolbar-hover-color);
 }
 
 li a span{
@@ -156,4 +198,18 @@ li a span{
   margin: 20px -80px;
   font-weight: 800;
   letter-spacing: 2px;
+}
+
+.toolbar.active .navItems li a span{
+  padding-top: 0.3rem;
+  transform: translateX(-15px);
+  transition: 0.4s ease;
+  transition-delay: calc(0.08s * var(--g));
+}
+
+.toolbar.active .navItems li:hover a span{
+  transform: translateX(-30px);
+    transition: 0.4s ease;
+  transition-delay: calc(0.08s * var(--g));
+  color:var(--toolbar-hover-color);
 }
