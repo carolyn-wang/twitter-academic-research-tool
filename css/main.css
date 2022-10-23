@@ -8,6 +8,8 @@
   --toolbar-background-color: #0d6dfd2a;
   --toolbar-hover-color: #0041b1fd;
   --toolbar-active-color: #002468fd;
+  --text-color-light: grey;
+  --text-color-link-light: #617da6;
 
 
   /* Padding */
@@ -53,7 +55,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   font-size: small;
-  color: grey;
+  color: var(--text-color-light);
   padding-bottom: var(--padding-xsmall);
 }
 
@@ -219,4 +221,19 @@ li a span{
     transition: 0.4s ease;
   transition-delay: calc(0.08s * var(--g));
   color:var(--toolbar-hover-color);
+}
+
+/* Footer */
+footer{
+  padding-top: var(--padding-large);
+}
+
+footer p{
+  color: var(--text-color-light);
+  font-size: x-small;
+}
+
+footer a{
+  color: var(--text-color-link-light);
+  font-size: x-small;
 }
