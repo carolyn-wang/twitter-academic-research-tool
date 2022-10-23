@@ -39,7 +39,7 @@
     <section class="title-detail">Full Archive Search</section>
 
     <!-- Search Form -->
-    <form name="searchForm" class="row g-3 needs-validation" action="#index.html" method="post">
+    <form name="searchForm" id="searchForm" onsubmit="searchOnTwitter()" class="row g-3 needs-validation" method="post">
         <div class="col-md-12">
             <label for="inputSearch1" class="form-label">Search Terms</label>
             <input type="text" class="form-control form-control-lg" id="inputSearch" name="inputSearch"
@@ -77,109 +77,144 @@
         <div class="invalid-feedback">
             You must agree before submitting.
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
+        <!-- <button type="submit" class="btn btn-primary">Generate Analytics</button> -->
+        <input type="submit" class="btn btn-primary" value="Search On Twitter (Advanced Search)">
+        <div class="form-text">Tip: Click the three dots next to the Twitter search bar and uncheck "Hide sensitive content".</div>
     </form>
 
-    <button onclick="createTwitterTimeline()" style="margin:40px">Show Twitter Timeline</button>
+
+
+    <script>
+        function searchOnTwitter() {
+            /*
+                Opens results for advanced search on Twitter using search terms
+                    - Twitter Search Operator Syntax: https://developer.twitter.com/en/docs/twitter-api/v1/rules-and-filtering/search-operators
+                    - Search terms separated by 20% in search url
+            */
+
+            // Stop website from refreshing
+            event.preventDefault()
+
+            // Build website URL for advanced search
+            var twitter_html_head = "https://twitter.com/search?lang=en";
+            var all_these_words = "&q=";
+            var twitter_html_tail = "&src=typed_query";
+
+            var searchForm = document.getElementById('searchForm');
+
+            var searchTerms = searchForm.elements[0].value;
+            var searchTermsWords = searchTerms.split(" ")
+            searchTermsWords.forEach((word) => {
+                all_these_words+= ("%20" + word);
+            });
+
+            var url = twitter_html_head + all_these_words + twitter_html_tail;
+            window.open(url, '_blank');
+        }
+    </script>
+
+
+    <button onclick="createTwitterTimeline()" class="btn btn-primary" style="margin:40px">Show Twitter Timeline</button>
 
     <!-- Embedded Tweets/Timeline -->
-        <div id="twitter-timeline-container"></div>
-        <script>
-            // Instantiating timeline widget
-            var createTwitterTimeline = (function() {
-                var executed = false; // only generate timeline once
-                    var dataSource = {
-                    sourceType: 'profile',
-                    screenName: 'carolynw318'
-                    // slug:
-                };
+    <div id="twitter-timeline-container"></div>
+    <script>
+        // Instantiating timeline widget
+        var createTwitterTimeline = (function () {
+            var executed = false; // only generate timeline once
+            var dataSource = {
+                sourceType: 'profile',
+                screenName: 'carolynw318'
+                // slug:
+            };
 
-                // Getting HTML id
-                var target = document.getElementById('twitter-timeline-container');
+            // Getting HTML id
+            var target = document.getElementById('twitter-timeline-container');
 
-                var options = {
-                    chrome: 'nofooter',
-                    width: "40vw",
-                    height: "80vh"
-                };
-                if (!executed){
+            var options = {
+                chrome: 'nofooter',
+                width: "40vw",
+                height: "80vh"
+            };
+            if (!executed) {
                 twttr.ready(function (twttr) {
                     twttr.widgets.createTimeline(dataSource, target, options);
                 }
                 );
                 executed = true;
             }
-            });
-        </script>
-
-    </body>
-
-    <footer>
-        <!-- <p>
-            The tool was created by researchers at the Berkeley Human Rights Center (
-            <a href="https://github.com/carolyn-wang/twitter-academic-research-tool" target="_blank">Carolyn Wang</a>, 
-            <a href="https://github.com/carolyn-wang/twitter-academic-research-tool" target="_blank">Larry Gan</a>,
-            <a href="https://github.com/carolyn-wang/twitter-academic-research-tool">Aayush Patel</a>, 
-            <a href="https://github.com/carolyn-wang/twitter-academic-research-tool">Ellie Wong</a> ).
-        </p> -->
-        <p>This tool is completely free and open-source. 
-           To leave a suggestion, contribution, or report a bug,
-           please open an issue on this <a href="https://github.com/carolyn-wang/twitter-academic-research-tool" target="_blank">project's github page</a>.
-           <!-- or contact our team directly at <a href="mailto:carolynw@berkeley.edu" target="_blank">carolynw@berkeley.edu</a>. -->
-        </p>
-      </footer>
-
-    <!-- Set Max Date Limit (input field's max date is today) -->
-    <script>
-        inputDateStart.max = new Date().toISOString().split("T")[0];
-        inputDateEnd.max = new Date().toISOString().split("T")[0];
+        });
     </script>
 
+</body>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
-        <a href="#" class="toggleBox">
-            <span class="icon"></span>
-        </a>
-        <ul class="navItems">
-            <li>
-                <a href="https://www.google.com/" target="_blank">
-                    <span style="--g:1">home</span>
-                    <i class="fa fa-lg fa-house" style="--i:1"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span style="--g:2">user</span>
-                    <i class="fa fa-lg fa-user" style="--i:2"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span style="--g:3">about</span>
-                    <i class="fa fa-lg fa-search" style="--i:3"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span style="--g:4">info</span>
-                    <i class="fa fa-lg fa-file" style="--i:4"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
+<footer>
+    <!-- <p>
+            The tool was created by researchers at the Berkeley Human Rights Center (
+            <a href="https://github.com/carolyn-wang/" target="_blank">Carolyn Wang</a>, 
+            <a href="https://github.com/carolyn-wang/" target="_blank">Larry Gan</a>,
+            <a href="https://github.com/carolyn-wang/">Aayush Patel</a>, 
+            <a href="https://github.com/carolyn-wang/">Ellie Wong</a> ).
+        </p> -->
+    <p>This tool is completely free and open-source.
+        To leave a suggestion, contribution, or report a bug,
+        please open an issue on this <a href="https://github.com/carolyn-wang/twitter-academic-research-tool"
+            target="_blank">project's github page</a>.
+        <!-- or contact our team directly at <a href="mailto:carolynw@berkeley.edu" target="_blank">carolynw@berkeley.edu</a>. -->
+    </p>
+</footer>
 
-    <script>
-        // set toolbar by default to open
-        var toggleClick = document.querySelector(".toggleBox");
-        var toolbar = document.querySelector(".toolbar")
+<!-- Set Max Date Limit (input field's max date is today) -->
+<script>
+    inputDateStart.max = new Date().toISOString().split("T")[0];
+    inputDateEnd.max = new Date().toISOString().split("T")[0];
+</script>
+
+
+<!-- Toolbar -->
+<div class="toolbar">
+    <a href="#" class="toggleBox">
+        <span class="icon"></span>
+    </a>
+    <ul class="navItems">
+        <li>
+            <a href="https://www.google.com/" target="_blank">
+                <span style="--g:1">home</span>
+                <i class="fa fa-lg fa-house" style="--i:1"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span style="--g:2">user</span>
+                <i class="fa fa-lg fa-user" style="--i:2"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span style="--g:3">about</span>
+                <i class="fa fa-lg fa-search" style="--i:3"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span style="--g:4">info</span>
+                <i class="fa fa-lg fa-file" style="--i:4"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    // set toolbar by default to open
+    var toggleClick = document.querySelector(".toggleBox");
+    var toolbar = document.querySelector(".toolbar")
+    toggleClick.classList.toggle('active');
+    toolbar.classList.toggle('active');
+    toggleClick.addEventListener('click', () => {
         toggleClick.classList.toggle('active');
         toolbar.classList.toggle('active');
-        toggleClick.addEventListener('click', () => {
-            toggleClick.classList.toggle('active');
-            toolbar.classList.toggle('active');
-        })
-    </script>
+    })
+</script>
 
 </html>
 
