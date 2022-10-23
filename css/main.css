@@ -68,6 +68,13 @@ body {
   border-width: 0.15rem;
 }
 
+/* Timeline */
+#twitter-timeline-container{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Toolbar */
 /* Credit: https://www.youtube.com/watch?v=1uEAt51fEos */
 
@@ -77,7 +84,7 @@ body {
   width: 70px;
   background-color: var(--toolbar-background-color);
   border-radius: 50px;
-  position: absolute;
+  position: fixed;
   right:var(--padding-toolbar-right);
   transition: 0.4s ease;
 }

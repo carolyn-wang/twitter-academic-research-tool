@@ -1,6 +1,26 @@
 <!doctype html>
 <html lang="en">
 
+<!-- Script for Twitter embedded widgets -->
+<script>
+    window.twttr = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function (f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,16 +37,13 @@
         <i class="fa fa-2x fa-twitter"></i>
     </section>
     <section class="title-detail">Full Archive Search</section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
 
     <!-- Search Form -->
     <form name="searchForm" class="row g-3 needs-validation" action="#index.html" method="post">
         <div class="col-md-12">
             <label for="inputSearch1" class="form-label">Search Terms</label>
-            <input type="text" class="form-control form-control-lg" id="inputSearch" name="inputSearch" aria-describedby="emailHelp"
-                required/>
+            <input type="text" class="form-control form-control-lg" id="inputSearch" name="inputSearch"
+                aria-describedby="emailHelp" required />
             <div id="emailHelp" class="form-text">Enter what you would typically search on Twitter</div>
         </div>
 
@@ -63,59 +80,91 @@
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-</body>
+    <button onclick="createTwitterTimeline()" style="margin:40px">Show Twitter Timeline</button>
 
-<!-- Set Max Date Limit (input field's max date is today) -->
-<script>
-    inputDateStart.max = new Date().toISOString().split("T")[0];
-    inputDateEnd.max = new Date().toISOString().split("T")[0];
-</script>
+    <!-- Embedded Tweets/Timeline -->
+        <div id="twitter-timeline-container"></div>
+        <script>
+            // Instantiating timeline widget
+            var createTwitterTimeline = (function() {
+                var executed = false; // only generate timeline once
+                    var dataSource = {
+                    sourceType: 'profile',
+                    screenName: 'carolynw318'
+                    // slug:
+                };
+
+                // Getting HTML id
+                var target = document.getElementById('twitter-timeline-container');
+
+                var options = {
+                    chrome: 'nofooter',
+                    width: "40vw",
+                    height: "80vh"
+                };
+                if (!executed){
+                twttr.ready(function (twttr) {
+                    twttr.widgets.createTimeline(dataSource, target, options);
+                }
+                );
+                executed = true;
+            }
+            });
+        </script>
+
+    </body>
+
+    <!-- Set Max Date Limit (input field's max date is today) -->
+    <script>
+        inputDateStart.max = new Date().toISOString().split("T")[0];
+        inputDateEnd.max = new Date().toISOString().split("T")[0];
+    </script>
 
 
-<!-- Toolbar -->
-<div class="toolbar">
-    <a href="#" class="toggleBox">
-        <span class="icon"></span>
-    </a>
-    <ul class="navItems">
-        <li>
-            <a href="https://www.google.com/" target="_blank">
-                <span style="--g:1">home</span>
-                <i class="fa fa-lg fa-house" style="--i:1"></i>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span style="--g:2">user</span>
-                <i class="fa fa-lg fa-user" style="--i:2"></i>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span style="--g:3">about</span>
-                <i class="fa fa-lg fa-search" style="--i:3"></i>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span style="--g:4">info</span>
-                <i class="fa fa-lg fa-file" style="--i:4"></i>
-            </a>
-        </li>
-    </ul>
-</div>
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <a href="#" class="toggleBox">
+            <span class="icon"></span>
+        </a>
+        <ul class="navItems">
+            <li>
+                <a href="https://www.google.com/" target="_blank">
+                    <span style="--g:1">home</span>
+                    <i class="fa fa-lg fa-house" style="--i:1"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span style="--g:2">user</span>
+                    <i class="fa fa-lg fa-user" style="--i:2"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span style="--g:3">about</span>
+                    <i class="fa fa-lg fa-search" style="--i:3"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span style="--g:4">info</span>
+                    <i class="fa fa-lg fa-file" style="--i:4"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 
-<script>
-    // set toolbar by default to open
-    var toggleClick = document.querySelector(".toggleBox");
-    var toolbar = document.querySelector(".toolbar")
-    toggleClick.classList.toggle('active');
-    toolbar.classList.toggle('active');
-    toggleClick.addEventListener('click', () => {
+    <script>
+        // set toolbar by default to open
+        var toggleClick = document.querySelector(".toggleBox");
+        var toolbar = document.querySelector(".toolbar")
         toggleClick.classList.toggle('active');
         toolbar.classList.toggle('active');
-    })
-</script>
+        toggleClick.addEventListener('click', () => {
+            toggleClick.classList.toggle('active');
+            toolbar.classList.toggle('active');
+        })
+    </script>
 
 </html>
 
